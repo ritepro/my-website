@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Day</title>
+    <link rel="icon" href="https://www.famousbirthdays.com/faces/vexbolts-image.jpg" type="image/x-icon">
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), 
+                        url('https://static.deltiasgaming.com/2024/12/Vexbolts.jpg') no-repeat center center fixed;
+            background-size: cover;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            animation: smooth-render 10s infinite alternate ease-in-out;
+        }
+        @keyframes smooth-render {
+            0% { filter: brightness(1) saturate(1); }
+            50% { filter: brightness(1.1) saturate(1.2); }
+            100% { filter: brightness(1) saturate(1); }
+        }
+        #countdown {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 72px;
+            font-weight: bold;
+            color: white;
+            border: 5px solid;
+            animation: color-cycle 5s infinite;
+            margin-bottom: 20px;
+        }
+        @keyframes color-cycle {
+            0% { border-color: red; }
+            14% { border-color: orange; }
+            28% { border-color: yellow; }
+            42% { border-color: green; }
+            57% { border-color: blue; }
+            71% { border-color: indigo; }
+            85% { border-color: violet; }
+            100% { border-color: red; }
+        }
+        .info-box {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 15px;
+            border-radius: 5px;
+            color: white;
+            font-size: 18px;
+            text-align: center;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            width: 80%;
+            max-width: 500px;
+            margin: 10px 0;
+        }
+        .info-box strong {
+            display: block;
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const targetDate = new Date('2025-01-01T15:59:00');
+            const countdownElement = document.getElementById('countdown');
+            const timezoneElement = document.getElementById('timezone');
+
+            timezoneElement.textContent = `Time Zone: ${Intl.DateTimeFormat().resolvedOptions().timeZone}`;
+
+            function updateCountdown() {
+                const now = new Date();
+                const difference = targetDate - now;
+
+                if (difference <= 0) {
+                    countdownElement.textContent = "The event has started!";
+                    clearInterval(timer);
+                    return;
+                }
+
+                const hours = Math.floor(difference / (1000 * 60 * 60));
+                const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+                countdownElement.textContent = `${hours}h ${minutes}m ${seconds}s`;
+            }
+
+            const timer = setInterval(updateCountdown, 1000);
+            updateCountdown();
+
+            document.addEventListener('contextmenu', (e) => e.preventDefault());
+            document.addEventListener('keydown', (e) => {
+                if (['F12', 'I', 'C', 'J', 'U'].includes(e.key) && (e.ctrlKey || e.shiftKey)) {
+                    e.preventDefault();
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <div id="countdown" aria-live="polite"></div>
+    <div class="info-box" id="timezone"></div>
+    <div class="info-box" id="update-log">
+        <strong>Update Log:</strong>
+        <ul>
+            <li>Dynamic countdown with time zone support</li>
+            <li>Improved browser compatibility</li>
+            <li>Enhanced layout and design</li>
+        </ul>
+    </div>
+</body>
+</html>
